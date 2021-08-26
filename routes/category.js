@@ -4,6 +4,7 @@ const category = require('../controllers/category.controller')
 
 /* Category */
 router.get('/', category.findAll)
+router.get('/:id', category.findOne)
 router.post('/', category.create)
 router.put('/:id', category.update)
 router.delete('/:id', category.delete)

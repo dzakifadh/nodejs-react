@@ -8,13 +8,13 @@ exports.create = async (req, res) => {
     db.category.create(data)
     .then(result => {
         res.status(200).send({
-            message: 'Data created successfully!',
+            message: 'Category created successfully!',
             data: result
         })
     })
     .catch(error => {
         res.status(500).send({
-            message: 'Can\'t created data!',
+            message: 'Can\'t created category!',
             data: error
         })
     })
@@ -25,14 +25,35 @@ exports.findAll = async (req, res) => {
     .then(result => {
         if (!result) {
             res.status(404).send({
-                message: 'Data not found'
+                message: 'Category not found'
             })
         }
         res.status(200).send({
-            message: result
+            data: result
         })
     })
-    .catch(error => {})
+    .catch(error => {
+        res.status(500).send({
+            message: error
+        })
+    })
+}
+
+exports.findOne = async (req, res) => {
+    const id = req.params.id
+    db.category.findOne({
+        where: {id}
+    })
+    .then(result => {
+        res.status(200).send({
+            data: result
+        })
+    })
+    .catch(error => {
+        res.status(404).send({
+            data: error
+        })
+    })
 }
 
 exports.update = async (req, res) => {
@@ -47,17 +68,17 @@ exports.update = async (req, res) => {
     .then(result => {
         if(result[0]){
             res.status(200).send({
-                message: 'Data updated!',
+                message: 'Category updated!',
             })
         }else{
             res.status(442).send({
-                message: 'Fail to update data, incorrect request'
+                message: 'Fail to update category, incorrect request'
             })
         }
     })
     .catch(error => {
         res.status(500).send({
-            message: 'Can\'t update data!',
+            message: 'Can\'t update category!',
             data: error
         })
     })
@@ -71,12 +92,12 @@ exports.delete = async (req, res) => {
     })
     .then(result => {
         res.status(200).send({
-            message: 'Data deleted!'
+            message: 'Category deleted!'
         })
     })
     .catch(error => {
         res.status(500).send({
-            message: 'Can\'t delete data!'
+            message: 'Can\'t delete category!'
         })
     })
 }
