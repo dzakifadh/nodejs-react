@@ -84,10 +84,15 @@ exports.update = async (req, res) => {
         where: {id}
     })
     .then(result => {
-        res.status(200).send({
-            message: 'Product updated!',
-            data: result,
-        })
+        if (result[0] === 1) {
+            res.status(200).send({
+                message: 'Product updated!',
+            })
+        }else{
+            res.status(404).send({
+                message: 'Product ID Not Found',
+            })
+        }
     })
     .catch(error => {
         res.status(500).send({
@@ -103,9 +108,15 @@ exports.delete = async (req, res) => {
         where: {id}
     })
     .then(result => {
-        res.status(200).send({
-            message: 'Product deleted!',
-        })
+        if (result[0] === 1) {
+            res.status(200).send({
+                message: 'Product deleted!',
+            })
+        }else{
+            res.status(404).send({
+                message: 'Product ID Doesn\'t exist!',
+            })
+        }
     })
     .catch(error => {
         res.status(500).send({

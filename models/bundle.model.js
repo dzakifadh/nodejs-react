@@ -27,7 +27,7 @@ db.sequelize = sequelize
 db.product = require('./product.model')(sequelize, Sequelize)
 db.category = require('./category.model')(sequelize, Sequelize)
 
-db.category.hasMany(db.product, {foreignKey: 'product_id', onDelete: 'SET NULL'})
-db.product.belongsTo(db.category, {foreignKey: 'product_id', onDelete: 'SET NULL'})
+db.category.hasMany(db.product, {foreignKey: 'category_id', onDelete: 'SET NULL'})
+db.product.belongsTo(db.category, {foreignKey: 'category_id', onDelete: 'SET NULL'})
 
 module.exports = db

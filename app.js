@@ -22,4 +22,8 @@ app.use('/product', productRouter)
 const categoryRouter = require('./routes/category')
 app.use('/category', categoryRouter)
 
+/* Frontend */
+const frontendRouter = require('./routes/frontend')
+app.use('/frontend', frontendRouter)
+
 module.exports = app
