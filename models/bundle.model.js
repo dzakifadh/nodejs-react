@@ -26,8 +26,24 @@ db.sequelize = sequelize
 
 db.product = require('./product.model')(sequelize, Sequelize)
 db.category = require('./category.model')(sequelize, Sequelize)
+db.transaction = require('./transaction.model')(sequelize, Sequelize)
+db.transaction_detail = require('./transaction_detail.model')(sequelize, Sequelize)
+db.customer = require('./customer.model')(sequelize, Sequelize)
+db.cart = require('./cart.model')(sequelize, Sequelize)
 
 db.category.hasMany(db.product, {foreignKey: 'category_id', onDelete: 'SET NULL'})
 db.product.belongsTo(db.category, {foreignKey: 'category_id', onDelete: 'SET NULL'})
+
+db.product.hasMany(db.cart, {foreignKey: 'product_id', onDelete: 'CASCADE'})
+db.cart.belongsTo(db.product, {foreignKey: 'product_id'})
+
+db.product.hasMany(db.transaction_detail, {foreignKey: 'product_id', onDelete: 'SET NULL'})
+db.transaction_detail.belongsTo(db.product, {foreignKey: 'product_id'})
+
+db.transaction.hasMany(db.transaction_detail, {foreignKey: 'transaction_id'})
+db.transaction_detail.belongsTo(db.transaction, {foreignKey: 'transaction_id'})
+
+db.transaction.hasOne(db.customer, {foreignKey: 'transaction_id', onDelete: 'CASCADE'})
+db.customer.belongsTo(db.transaction, {foreignKey: 'transaction_id'})
 
 module.exports = db

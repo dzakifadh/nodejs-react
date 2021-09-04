@@ -91,9 +91,15 @@ exports.delete = async (req, res) => {
         where: {id}
     })
     .then(result => {
-        res.status(200).send({
-            message: 'Category deleted!'
-        })
+        if(result){
+            res.status(200).send({
+                message: 'Category deleted!'
+            })
+        }else{
+            res.status(404).send({
+                message: 'Category ID doesn\'t exist!',
+            })
+        }
     })
     .catch(error => {
         res.status(500).send({

@@ -107,16 +107,10 @@ exports.delete = async (req, res) => {
     db.product.destroy({
         where: {id}
     })
-    .then(result => {
-        if (result[0] === 1) {
-            res.status(200).send({
-                message: 'Product deleted!',
-            })
-        }else{
-            res.status(404).send({
-                message: 'Product ID Doesn\'t exist!',
-            })
-        }
+    .then(() => {
+        res.status(200).send({
+            message: 'Product deleted!',
+        })
     })
     .catch(error => {
         res.status(500).send({
